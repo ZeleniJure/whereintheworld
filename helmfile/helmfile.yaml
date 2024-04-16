@@ -1,0 +1,25 @@
+repositories:
+ - name: infisical-helm-charts
+   url: https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts/
+ - name: bitnami
+   url: https://charts.bitnami.com/bitnami
+
+releases:
+- name: secret-manager
+  namespace: infiscal
+  version: 0.5.0
+  chart: infisical-helm-charts/secrets-operator
+
+- name: database
+  namespace: db
+  # TODO: pin version here...
+  chart: bitnami/postgresql-ha
+  values:
+    - pgsql.yaml
+  
+- name: whereintheworld
+  namespace: whereintheworld
+  # TODO: version
+  chart: ./charts/whereintheworld
+  values:
+    - whereintheworld.yaml

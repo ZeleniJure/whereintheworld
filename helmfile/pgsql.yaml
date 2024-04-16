@@ -1,0 +1,14 @@
+global:
+  storageClass: do-block-storage-retain
+  postgresql:
+    username: whereintheworld
+    repmgrUsername: whereintheworld
+    database: whereintheworld
+    existingSecret: pg-db
+  pgpool:
+    adminUsername: whereintheworld
+    existingSecret: pg-db
+# We should set these as well:
+  # - pgpool.resources
+  # - postgresql.resources
+  # - witness.resources

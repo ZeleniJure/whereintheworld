@@ -1,0 +1,20 @@
+{{- if .Values.infiscal.enabled -}}
+apiVersion: secrets.infisical.com/v1alpha1
+kind: InfisicalSecret
+metadata:
+  name: {{ include "whereintheworld.fullname" . }}
+spec:
+    hostAPI: {{ .Values.infiscal.hostApi | default "https://app.infisical.com/api" }}
+    resyncInterval: {{ .Values.infiscal.resyncInterval | default "120" }}
+    authentication:
+        serviceToken:
+            serviceTokenSecretReference:
+                secretName: {{ $.Values.infiscal.secretName | default "service-token" }}
+                secretNamespace: {{ .Values.infiscal.secretNamespace | default "infiscal" }}
+            secretsScope:
+                envSlug: {{ .Values.infiscal.envSlug }}
+                secretsPath: {{ .Values.infiscal.secretsPath | default "whereintheworld" }}
+    managedSecretReference:
+        secretName: {{ include "whereintheworld.fullname" . }}
+        secretNamespace: {{ .Release.Namespace }}
+{{- end }}

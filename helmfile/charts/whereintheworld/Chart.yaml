@@ -1,0 +1,7 @@
+apiVersion: v2
+name: whereintheworld
+description: The most awesome app in this kube cluster!
+type: application
+
+version: 0.1.0
+appVersion: "1.0.3"

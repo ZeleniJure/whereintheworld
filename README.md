@@ -67,3 +67,7 @@ yarn
 ./bin/start
 ```
 The server is now running at [`http://localhost:8000/`](http://localhost:8000/). **Warning:** Don't visit `localhost:3000` as the raw frontend will not work as expected.
+
+
+## Infrastructure
+Is described in the [helmfile folder](helmfile/README.md)

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "whereintheworld.fullname" . }}-conf
+  labels:
+    {{- include "whereintheworld.labels" . | nindent 4 }}
+data:
+{{- range $key, $val := .Values.configuration }}
+  {{ $key }}: {{ $val }}
+{{- end }}
