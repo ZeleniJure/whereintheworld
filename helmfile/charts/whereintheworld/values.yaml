@@ -1,0 +1,126 @@
+# Default values for whereintheworld.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+# TODO: rolling restart, resource limits
+
+
+replicaCount: 1
+
+image:
+  # TODO: don't use latest tag
+  repository: registry.skube.si/witw
+  # pullPolicy: IfNotPresent
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  # tag: ""
+
+imagePullSecrets:
+  - name: regcred
+# nameOverride: ""
+# fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# Additional volumes on the output Deployment definition.
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+# - name: foo
+#   mountPath: "/etc/foo"
+#   readOnly: true
+
+# Get additional configuration from here
+configuration:
+  DB_HOST: database-postgresql-ha-pgpool.db.svc.cluster.local
+  ALLOWED_HOSTS: '"*"'
+  DEBUG: '"1"'
+  MULTI_TENANCY: '"True"'
+
+
+infiscal:
+  enabled: false
+  envSlug: WHICH-ENVIRONMENT-TO-USE
+
+  # # How often to sync secrets
+  # resyncInterval: 120
+  # # Path to the secret, where / is the root of your project
+  # secretsPath: "whereintheworld"
+  # # Secret name used to authenticate to Infiscal using service token authentication.
+  # # Example: kubectl -n infiscal create secret generic service-token --from-literal="infisicalToken=st.XXXX"
+  # secretName: "service-token"
+  # # The namespace where the secret above lives
+  # secretNamespace: "infiscal"
+  # # Host where Infiscal is accessible
+  # hostApi: https://app.infisical.com/api
