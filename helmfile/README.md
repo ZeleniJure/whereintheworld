@@ -52,6 +52,8 @@ I would:
 - clean it up, I would not consider current state of the chart "production ready"
 - set rolling restarts as the default on the deployment
 
+> Another note would be in order, I didn't set any content security policies, allowed hosts, gunicorn timeouts, ..... since it was just about "make the app work".
+
 ## Random
 Cities import doesn't work because of permissions issue: Permission denied: '/usr/local/lib/python3.9/site-packages/cities/data'
 
